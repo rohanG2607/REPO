@@ -1,0 +1,524 @@
+/* Krystall Stars Website Stylesheet
+    - V3: Added Mobile Menu, Video, Process Tabs, Mobile CTA
+*/
+
+/* --- 1. Root Variables and Global Reset (Unchanged) --- */
+:root {
+    --color-primary: #1D4B29; 
+    --color-background: #FDFBF5; 
+    --color-text: #333333;
+    --color-light-text: #FFFFFF;
+    --color-border: #DDDDDD;
+    --color-success: #1D4B29;
+    --color-error: #D32F2F;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --touch-target-size: 44px;
+    --header-height: 84px; /* Updated for smoother shrinking */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-background);
+}
+/* Ensure main content isn't hidden by mobile CTA bar */
+main {
+    margin-bottom: 60px; /* Space for mobile CTA */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; color: var(--color-primary); }
+h3 { font-size: 1.25rem; }
+p { margin-bottom: 1rem; }
+a { color: var(--color-primary); text-decoration: none; }
+
+/* --- 2. Utility & Button Classes (Unchanged) --- */
+/* ... (btn, btn-primary, responsive-img, etc. are identical) ... */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: var(--touch-target-size); 
+}
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-light-text);
+    border: 2px solid var(--color-primary);
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #14351D;
+    border-color: #14351D;
+}
+.responsive-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- 3. Layout: Header & Footer --- */
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(253, 251, 245, 0.9); 
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: padding 0.3s ease-out;
+}
+.main-header.scrolled {
+    padding: 0.25rem 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    min-height: 60px;
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    transition: padding 0.3s ease-out;
+}
+.main-header.scrolled .navbar { padding: 0.5rem 0; }
+.nav-logo a {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    transition: font-size 0.3s ease-out;
+}
+.main-header.scrolled .nav-logo a { font-size: 1.3rem; }
+
+/* UPDATED: Hide desktop nav on mobile */
+.nav-menu {
+    display: none; /* Hidden by default */
+}
+.nav-link {
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+}
+.nav-link:hover, .nav-link:focus {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+.primary-cta-nav { display: none; }
+
+/* NEW: Hamburger Menu Button */
+.hamburger-btn, .close-menu-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    cursor: pointer;
+    display: block; /* Show on mobile */
+}
+
+/* NEW: Mobile Menu Overlay */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 100%; /* Start off-screen */
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-background);
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+}
+.mobile-menu.open {
+    transform: translateX(-100%);
+}
+.close-menu-btn {
+    position: absolute;
+    top: 2rem;
+    right: 5%;
+    font-size: 2rem;
+}
+.mobile-nav-links {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+.mobile-nav-links li {
+    margin: 2rem 0;
+}
+.mobile-nav-link {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+/* UPDATED Footer */
+.main-footer {
+    background-color: #f4f4f4;
+    color: #777;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+.footer-contact a {
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.footer-contact a:hover {
+    color: var(--color-primary);
+}
+
+/* --- 4. Page Sections --- */
+section { padding: 4rem 0; overflow-x: hidden; }
+
+/* F-02: Hero Section - UPDATED with Video */
+.hero-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 80vh;
+    padding: 6rem 0 4rem 0;
+    color: var(--color-light-text);
+    overflow: hidden; /* Contain the video */
+}
+.hero-video-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero-overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 2;
+}
+.hero-content { position: relative; z-index: 3; }
+.hero-content h1 {
+    color: var(--color-light-text); 
+    line-height: 1.2;
+    font-size: 2.8rem;
+}
+.hero-content p { font-size: 1.25rem; margin: 1rem 0 2rem 0; }
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+.cta-pulse { animation: pulse 2s infinite; }
+
+/* NEW: Interactive Process Section */
+#process { background-color: var(--color-background); }
+.process-layout { text-align: center; }
+.process-tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: 2rem;
+}
+.process-tab-btn {
+    background: none;
+    border: none;
+    padding: 1rem;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: #777;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+.process-tab-btn:hover {
+    color: var(--color-primary);
+}
+.process-tab-btn.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+.process-content {
+    display: none; /* Hidden by default */
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+    text-align: left;
+}
+.process-content.active {
+    display: grid; /* Show active content */
+}
+.process-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* F-04 & F-05: Product Showcase */
+.product-showcase-section { background-color: #FFFFFF; }
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+.product-card {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-background);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+    transition: box-shadow 0.4s ease;
+}
+.product-card:hover, .product-card:focus-within {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+.product-img-wrapper { overflow: hidden; height: 200px; }
+.product-card .product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.product-card:hover .product-img { transform: scale(1.1); }
+.product-card-content { padding: 1.5rem; }
+
+/* NEW: 3D Viewer Placeholder */
+.product-3d-viewer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    color: var(--color-primary);
+    text-align: center;
+}
+.product-3d-viewer i { font-size: 3rem; }
+.product-3d-viewer p { font-weight: 500; margin-top: 1rem; }
+
+/* NEW: Calendly Placeholder */
+#consultation { background-color: #FFFFFF; }
+.calendly-placeholder {
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    background: #f9f9f9;
+    max-width: 600px;
+    margin: 2rem auto 0;
+}
+.calendly-placeholder p {
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+/* --- 5. Contact Form (Unchanged) --- */
+.contact-form-section { background-color: var(--color-background); }
+.inquiry-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+}
+/* ... (All other form styles are identical) ... */
+.form-group { display: flex; flex-direction: column; }
+.form-group label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+.form-group input, .form-group select, .form-group textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    min-height: var(--touch-target-size); 
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: 2px solid var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(29, 75, 41, 0.2);
+}
+.form-feedback {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 5px;
+    display: none; 
+}
+.form-feedback.success {
+    display: block;
+    background-color: #E8F5E9;
+    color: var(--color-success);
+    border: 1px solid var(--color-success);
+}
+.form-feedback.error {
+    display: block;
+    background-color: #FFEBEE;
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+}
+.form-group-full { grid-column: 1 / -1; } /* Spans form cols */
+
+/* --- 6. Scroll Animation Classes (Unchanged) --- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in.is-visible { opacity: 1; transform: translateY(0); }
+.fade-in-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-left.is-visible { opacity: 1; transform: translateX(0); }
+.fade-in-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-right.is-visible { opacity: 1; transform: translateX(0); }
+
+/* --- 7. NEW: Mobile CTA Bar --- */
+.mobile-cta-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: var(--color-primary);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 900;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+.mobile-cta-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-light-text);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    flex: 1;
+    height: 100%;
+}
+.mobile-cta-link i {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+/* --- 8. Responsive Design (NFR-02) --- */
+
+/* Tablet (e.g., > 768px) */
+@media (min-width: 768px) {
+    h1 { font-size: 3.5rem; }
+    h2 { font-size: 2.5rem; }
+    
+    body {
+        /* Remove bottom margin for desktop */
+        margin-bottom: 0;
+    }
+
+    /* Show desktop nav, hide mobile buttons */
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 1.5rem;
+        align-items: center;
+    }
+    .hamburger-btn, .mobile-menu {
+        display: none;
+    }
+    .primary-cta-nav {
+        display: inline-block;
+        background-color: var(--color-primary);
+        color: var(--color-light-text);
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .primary-cta-nav:hover, .primary-cta-nav:focus {
+        background-color: #14351D;
+        color: var(--color-light-text);
+        text-decoration: none;
+    }
+
+    /* Process section layout */
+    .process-content {
+        grid-template-columns: 1fr 1fr;
+    }
+    .process-content-text { order: 1; }
+    .process-img { order: 2; }
+    .process-content:nth-child(even) .process-content-text { order: 2; }
+    .process-content:nth-child(even) .process-img { order: 1; }
+
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+    .inquiry-form { grid-template-columns: 1fr 1fr; }
+    .form-group-full { grid-column: 1 / -1; }
+    
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    /* Hide mobile CTA bar */
+    .mobile-cta-bar {
+        display: none;
+    }
+}
+
+/* Desktop (e.g., > 1200px) */
+@media (min-width: 1200px) {
+    section { padding: 5rem 0; }
+    .hero-section { min-height: 90vh; }
+}
